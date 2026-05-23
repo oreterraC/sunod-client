@@ -1,20 +1,10 @@
-interface Album {
-  title: string;
-  cover: string;
-}
-
-interface Song {
-  id: number;
-  album: Album;
-  title_short: string;
-  duration: number;
-}
+import type { Track } from "../types/Track";
 
 interface Properties {
-  song: Song;
+  track: Track;
 }
 
-const TrackCard = ({ song }: Properties) => {
+const TrackCard = ({ track }: Properties) => {
   const transformToMinutes = (duration: number) => {
     const minutes = Math.floor(duration / 60);
     const seconds = duration % 60;
@@ -22,16 +12,28 @@ const TrackCard = ({ song }: Properties) => {
     return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   };
 
-  const duration = transformToMinutes(song.duration);
+  const duration = transformToMinutes(track.duration);
 
   return (
-    <div className="bg-gray-400 rounded-sm">
-      <img src={`${song.album.cover}?size=big`} alt="" />
-      <div>
-        {song.album.title} | {song.title_short}
+    <>
+      <img src={track.cover} alt="" className="rounded-lg" />
+      <div className="flex justify-start p-3">
+        <img
+          src={track.picture}
+          alt=""
+          className="w-10 h-10 rounded-full flex-shrink-0"
+        />
+        <div className="flex flex-col pl-3 min-w-0">
+          <h3 className="font-semibold text-xl truncate text-white">
+            {track.title}
+          </h3>
+          <span className="text-sm text-zinc-600 line-clamp-2">
+            {track.album}
+          </span>
+          <span className="text-sm text-white font-medium">{duration}</span>
+        </div>
       </div>
-      <div>{duration}</div>
-    </div>
+    </>
   );
 };
 

@@ -5,7 +5,7 @@ interface Properties {
 }
 
 const TrackCardContainer = ({ children }: Properties) => {
-  return <div className="bg-gray-400 rounded-sm">{children}</div>;
+  return <div className="rounded-lg overflow-hidden">{children}</div>;
 };
 
 export default TrackCardContainer;

@@ -13,7 +13,7 @@ function App() {
           darkMode={darkMode}
           onChange={() => setDarkMode((darkMode) => !darkMode)}
         />
-        <aside className="hidden lg:block bg-gray-800 text-white p-4"></aside>
+        <aside className="hidden lg:block bg-zinc-900 text-white p-4"></aside>
         <TrackGrid />
       </div>
     </div>

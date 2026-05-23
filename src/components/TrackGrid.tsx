@@ -1,21 +1,10 @@
 import { useEffect, useState } from "react";
 import TrackCardContainer from "./TrackCardContainer";
 import TrackCard from "./TrackCard";
-
-interface Album {
-  title: string;
-  cover: string;
-}
-
-interface Song {
-  id: number;
-  album: Album;
-  title_short: string;
-  duration: number;
-}
+import type { Track } from "../types/Track";
 
 const TrackGrid = () => {
-  const [songs, setSongs] = useState<Song[]>([]);
+  const [tracks, setTracks] = useState<Track[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -31,7 +20,7 @@ const TrackGrid = () => {
 
         setIsLoading(false);
         const data = await response.json();
-        setSongs(data);
+        setTracks(data);
       } catch (error: any) {
         setIsLoading(false);
         if (error.name === "AbortError") return;
@@ -48,13 +37,13 @@ const TrackGrid = () => {
 
   return (
     <>
-      <div className="p-4 bg-gray-600">
+      <div className="p-4 bg-zinc-900">
         {isLoading && <p>Loading...</p>}
         {error && <div className="text-red-400 mb-4">{error}</div>}
-        <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 bg-gray-600 p-4">
-          {songs?.map((song) => (
-            <TrackCardContainer key={song.id}>
-              <TrackCard song={song}></TrackCard>
+        <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 bg-zinc-900 p-4">
+          {tracks?.map((track) => (
+            <TrackCardContainer key={track.id}>
+              <TrackCard track={track}></TrackCard>
             </TrackCardContainer>
           ))}
         </div>
