@@ -40,9 +40,9 @@ const TrackGrid = () => {
 
   return (
     <>
-      <div className="p-4 bg-zinc-900">
+      <div className="p-4 bg-zinc-50 dark:bg-zinc-900">
         {error && <div className="text-red-400 mb-4">{error}</div>}
-        <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 bg-zinc-900 p-4">
+        <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 bg-zinc-50 dark:bg-zinc-900 p-4">
           {isLoading
             ? skeletons.map((skeleton) => (
                 <TrackCardContainer key={skeleton}>

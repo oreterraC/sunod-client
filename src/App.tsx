@@ -1,19 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import TrackGrid from "./components/TrackGrid";
 
 function App() {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState<boolean>(() => {
+    const savedTheme = localStorage.getItem("darkMode");
+    return savedTheme ? JSON.parse(savedTheme) : true;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
+  }, [darkMode]);
 
   return (
     <div className={darkMode ? "dark" : ""}>
       <div className="grid grid-rows-[auto_1fr] grid-cols-1 lg:grid-cols-[200px_1fr] min-h-screen">
         <NavBar
           darkMode={darkMode}
-          onChange={() => setDarkMode((darkMode) => !darkMode)}
+          onChange={() => setDarkMode((previous) => !previous)}
         />
-        <aside className="hidden lg:block bg-zinc-900 text-white p-4"></aside>
+        <aside className="hidden lg:block bg-zinc-50 dark:bg-zinc-900 text-white p-4"></aside>
         <TrackGrid />
       </div>
     </div>
