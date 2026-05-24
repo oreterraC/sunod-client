@@ -8,7 +8,6 @@ interface Properties {
 
 const NavBar = ({ darkMode, onChange }: Properties) => {
   const ThemeIcon = darkMode ? SunIcon : MoonIcon;
-  console.log("Mode:", darkMode);
 
   return (
     <nav className="h-18 flex justify-between bg-zinc-50 dark:bg-zinc-900 lg:col-span-2 p-4">

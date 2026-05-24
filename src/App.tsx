@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import TrackGrid from "./components/TrackGrid";
+import GenreList from "./components/GenreList";
 
 function App() {
   const [darkMode, setDarkMode] = useState<boolean>(() => {
@@ -20,7 +21,9 @@ function App() {
           darkMode={darkMode}
           onChange={() => setDarkMode((previous) => !previous)}
         />
-        <aside className="hidden lg:block bg-zinc-50 dark:bg-zinc-900 text-white p-4"></aside>
+        <aside className="hidden lg:block bg-zinc-50 dark:bg-zinc-900 text-white p-4">
+          <GenreList />
+        </aside>
         <TrackGrid />
       </div>
     </div>
