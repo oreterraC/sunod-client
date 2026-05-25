@@ -27,7 +27,7 @@ const TrackCard = ({ track }: Properties) => {
           <h3 className="font-semibold text-xl truncate text-black dark:text-white">
             {track.title}
           </h3>
-          <span className="text-nd text-zinc-600 line-clamp-2">
+          <span className="text-md text-zinc-600 line-clamp-2">
             {track.album}
           </span>
           <span className="text-sm text-black dark:text-white font-medium">

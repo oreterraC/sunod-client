@@ -3,6 +3,7 @@ import TrackCardContainer from "./TrackCardContainer";
 import TrackCard from "./TrackCard";
 import type { Track } from "../types/Track";
 import TrackCardSkeleton from "./TrackCardSkeleton";
+import { getTracks } from "../services/api";
 
 const TrackGrid = () => {
   const [tracks, setTracks] = useState<Track[]>([]);
@@ -13,24 +14,17 @@ const TrackGrid = () => {
 
   useEffect(() => {
     const controller = new AbortController();
-    const fetchSongs = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/search?q=eminem", {
-          signal: controller.signal,
-        });
-        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
 
-        const data = await response.json();
+    getTracks("eminem", controller.signal)
+      .then((data) => {
         setTracks(data);
         setIsLoading(false);
-      } catch (error: any) {
-        if (error.name === "AbortError") return;
-        setError(error.message);
+      })
+      .catch((error) => {
+        if (error.name == "AbortError") return;
+        setError(error);
         setIsLoading(false);
-      }
-    };
-
-    fetchSongs();
+      });
 
     return () => {
       controller.abort();

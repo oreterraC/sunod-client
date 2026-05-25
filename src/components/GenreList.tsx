@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Genre } from "../types/Genre";
+import { getGenres } from "../services/api";
 
 const GenreList = () => {
   const [genres, setGenres] = useState<Genre[]>([]);
@@ -8,24 +9,17 @@ const GenreList = () => {
 
   useEffect(() => {
     const controller = new AbortController();
-    const fetchGenres = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/genre", {
-          signal: controller.signal,
-        });
-        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
-        const data = await response.json();
 
+    getGenres(controller.signal)
+      .then((data) => {
         setGenres(data);
         setIsLoading(false);
-      } catch (error: any) {
+      })
+      .catch((error) => {
         if (error.name == "AbortError") return;
-        setError(error.message);
+        setError(error);
         setIsLoading(false);
-      }
-    };
-
-    fetchGenres();
+      });
 
     return () => {
       controller.abort();
