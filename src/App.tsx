@@ -10,6 +10,8 @@ function App() {
     return savedTheme ? JSON.parse(savedTheme) : true;
   });
 
+  const [searchText, setSearchText] = useState("eminem");
+
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
   }, [darkMode]);
@@ -20,11 +22,14 @@ function App() {
         <NavBar
           darkMode={darkMode}
           onChange={() => setDarkMode((previous) => !previous)}
+          onSearch={(text) => {
+            setSearchText(text);
+          }}
         />
         <aside className="hidden lg:block bg-zinc-50 dark:bg-zinc-900 text-white p-4">
           <GenreList />
         </aside>
-        <TrackGrid />
+        <TrackGrid searchText={searchText} />
       </div>
     </div>
   );

@@ -5,7 +5,11 @@ import type { Track } from "../types/Track";
 import TrackCardSkeleton from "./TrackCardSkeleton";
 import { getTracks } from "../services/api";
 
-const TrackGrid = () => {
+interface Properties {
+  searchText: string;
+}
+
+const TrackGrid = ({ searchText }: Properties) => {
   const [tracks, setTracks] = useState<Track[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,7 +19,10 @@ const TrackGrid = () => {
   useEffect(() => {
     const controller = new AbortController();
 
-    getTracks("eminem", controller.signal)
+    setIsLoading(true);
+    setError(null);
+
+    getTracks(searchText, controller.signal)
       .then((data) => {
         setTracks(data);
         setIsLoading(false);
@@ -29,7 +36,7 @@ const TrackGrid = () => {
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [searchText]);
 
   return (
     <>
