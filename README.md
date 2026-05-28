@@ -1,73 +1,94 @@
-# React + TypeScript + Vite
+# 🚀 sunod
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Gestor inteligente de playlists
 
-Currently, two official plugins are available:
+![TypeScript](https://img.shields.io/badge/TypeScript-6-blue)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-blue)
+![React](https://img.shields.io/badge/React-19-blue)
+![Vite](https://img.shields.io/badge/Vite-8-purple)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ Características
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Buscar canciones
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Tecnologías
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- TypeScript
+- Tailwind CSS
+- React
+- Vite
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+
+## ⚙️ Instalación
+
+### 1. Clonar repositorio
+
+```bash
+git clone https://github.com/oreterraC/sunod-client.git
+cd sunod-client
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Instalar dependencias
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
+
+### 3. Ejecutar proyecto
+
+```bash
+npm run dev
+```
+
+La aplicación estará disponible en:
+
+```text
+http://localhost:5173
+```
+
+---
+
+## 🌐 API
+
+Este frontend consume la API:
+
+```text
+http://localhost:5000/
+```
+
+---
+
+## 📈 Mejoras futuras
+
+- [ ] Mostrar canciones por género
+- [ ] Ordenar canciones por relevancia
+- [ ] Autenticación
+- [ ] Gestión de playlists
+- [ ] Géneros más escuchados
+- [ ] Artistas favoritos
+- [ ] Canciones más escuchadas
+- [ ] Tendencias
+- [ ] Rankings
+- [ ] Recomendación simple
+
+---
+
+## 📄 Licencia
+
+Este proyecto está bajo la licencia MIT
+
+---
+
+## 👨‍💻 Autor
+
+Diego Álvarez Carretero
+
+- GitHub: https://github.com/oreterraC
+- LinkedIn: https://www.linkedin.com/in/diego-alvarez-carretero/
