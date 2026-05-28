@@ -26,22 +26,15 @@ const GenreList = () => {
   return (
     <ul className="space-y-3">
       {!error &&
-        genres?.map(
-          (genre) =>
-            genre.id != 0 && (
-              <li
-                key={genre.id}
-                className="flex flex-row items-center text-black text-lg dark:text-white"
-              >
-                <img
-                  src={genre.picture}
-                  alt=""
-                  className="w-9 h-9 rounded-lg"
-                />
-                <span className="pl-4 truncate">{genre.name}</span>
-              </li>
-            ),
-        )}
+        genres?.map((genre) => (
+          <li
+            key={genre.id}
+            className="flex flex-row items-center text-black text-lg dark:text-white"
+          >
+            <img src={genre.picture} alt="" className="w-9 h-9 rounded-lg" />
+            <span className="pl-4 truncate">{genre.name}</span>
+          </li>
+        ))}
     </ul>
   );
 };

@@ -10,7 +10,7 @@ function App() {
     return savedTheme ? JSON.parse(savedTheme) : true;
   });
 
-  const [searchText, setSearchText] = useState("eminem");
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(darkMode));

@@ -9,6 +9,12 @@ export async function getGenres(signal: AbortSignal): Promise<Genre[]> {
   return response.json();
 }
 
+export async function getTopTracks(signal: AbortSignal): Promise<Track[]> {
+  const response = await fetch(`${API_URL}/top`, { signal });
+  if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+  return response.json();
+}
+
 export async function getTracks(
   query: string,
   signal: AbortSignal,

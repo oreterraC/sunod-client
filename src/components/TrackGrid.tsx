@@ -3,7 +3,7 @@ import TrackCardContainer from "./TrackCardContainer";
 import TrackCard from "./TrackCard";
 import type { Track } from "../types/Track";
 import TrackCardSkeleton from "./TrackCardSkeleton";
-import { getTracks } from "../services/api";
+import { getTopTracks, getTracks } from "../services/api";
 
 interface Properties {
   searchText: string;
@@ -22,16 +22,27 @@ const TrackGrid = ({ searchText }: Properties) => {
     setIsLoading(true);
     setError(null);
 
-    getTracks(searchText, controller.signal)
-      .then((data) => {
-        setTracks(data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        if (error.name == "AbortError") return;
-        setError(error);
-        setIsLoading(false);
-      });
+    searchText.trim() === ""
+      ? getTopTracks(controller.signal)
+          .then((data) => {
+            setTracks(data);
+            setIsLoading(false);
+          })
+          .catch((error) => {
+            if (error.name == "AbortError") return;
+            setError(error.message);
+            setIsLoading(false);
+          })
+      : getTracks(searchText, controller.signal)
+          .then((data) => {
+            setTracks(data);
+            setIsLoading(false);
+          })
+          .catch((error) => {
+            if (error.name == "AbortError") return;
+            setError(error);
+            setIsLoading(false);
+          });
 
     return () => {
       controller.abort();
