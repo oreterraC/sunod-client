@@ -19,30 +19,24 @@ const TrackGrid = ({ searchText }: Properties) => {
   useEffect(() => {
     const controller = new AbortController();
 
-    setIsLoading(true);
-    setError(null);
+    const fetchTracks = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const data =
+          searchText.trim() === ""
+            ? await getTopTracks(controller.signal)
+            : await getTracks(searchText, controller.signal);
+        setTracks(data);
+        setIsLoading(false);
+      } catch (error: any) {
+        if (error.name === "AbortError") return;
+        setError(error);
+        setIsLoading(false);
+      }
+    };
 
-    searchText.trim() === ""
-      ? getTopTracks(controller.signal)
-          .then((data) => {
-            setTracks(data);
-            setIsLoading(false);
-          })
-          .catch((error) => {
-            if (error.name == "AbortError") return;
-            setError(error.message);
-            setIsLoading(false);
-          })
-      : getTracks(searchText, controller.signal)
-          .then((data) => {
-            setTracks(data);
-            setIsLoading(false);
-          })
-          .catch((error) => {
-            if (error.name == "AbortError") return;
-            setError(error);
-            setIsLoading(false);
-          });
+    fetchTracks();
 
     return () => {
       controller.abort();
