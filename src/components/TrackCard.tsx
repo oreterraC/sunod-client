@@ -24,10 +24,10 @@ const TrackCard = ({ track }: Properties) => {
           className="w-10 h-10 rounded-full flex-shrink-0"
         />
         <div className="flex flex-col pl-3 min-w-0">
-          <h3 className="font-semibold text-xl truncate text-black dark:text-white">
+          <h3 className="font-semibold text-2xl truncate text-black dark:text-white">
             {track.title}
           </h3>
-          <span className="text-md text-zinc-600 line-clamp-2">
+          <span className="text-md text-zinc-700 dark:text-zinc-500 line-clamp-2">
             {track.album}
           </span>
           <span className="text-sm text-black dark:text-white font-medium">
