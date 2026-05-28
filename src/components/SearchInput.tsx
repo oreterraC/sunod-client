@@ -14,16 +14,16 @@ const SearchInput = ({ onSearch }: Properties) => {
           event.preventDefault();
           if (reference.current) onSearch(reference.current.value);
         }}
-        className="flex items-center gap-2 w-full px-4 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 focus-within:ring-2 dark:focus-within:ring-zinc-300 focus-within:ring-zinc-800"
+        className="flex items-center gap-2 w-full rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 focus-within:ring-2 dark:focus-within:ring-zinc-300 focus-within:ring-zinc-800"
       >
-        <span className="text-zinc-500 flex items-center">
+        <span className="text-zinc-500 pl-4 flex items-center">
           <LuSearch />
         </span>
         <input
           ref={reference}
           type="text"
           placeholder="Search tracks..."
-          className="w-full py-2 bg-transparent outline-none text-black dark:text-white placeholder-zinc-700 dark:placeholder-zinc-400"
+          className="w-full py-2 px-4 bg-transparent outline-none text-black dark:text-white placeholder-zinc-700 dark:placeholder-zinc-400"
         ></input>
       </form>
     </div>
