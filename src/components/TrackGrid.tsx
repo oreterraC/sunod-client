@@ -3,13 +3,14 @@ import TrackCardContainer from "./TrackCardContainer";
 import TrackCard from "./TrackCard";
 import type { Track } from "../types/Track";
 import TrackCardSkeleton from "./TrackCardSkeleton";
-import { getTopTracks, getTracks } from "../services/api";
+import { getTopTracks, getTracks, getTracksByGenre } from "../services/api";
 
 interface Properties {
   searchText: string;
+  selectedGenre: number | null;
 }
 
-const TrackGrid = ({ searchText }: Properties) => {
+const TrackGrid = ({ searchText, selectedGenre }: Properties) => {
   const [tracks, setTracks] = useState<Track[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -24,9 +25,11 @@ const TrackGrid = ({ searchText }: Properties) => {
       setError(null);
       try {
         const data =
-          searchText.trim() === ""
-            ? await getTopTracks(controller.signal)
-            : await getTracks(searchText, controller.signal);
+          searchText.trim() !== ""
+            ? await getTracks(searchText, controller.signal)
+            : selectedGenre !== null
+              ? await getTracksByGenre(selectedGenre, controller.signal)
+              : await getTopTracks(controller.signal);
         setTracks(data);
         setIsLoading(false);
       } catch (error: any) {
@@ -41,7 +44,7 @@ const TrackGrid = ({ searchText }: Properties) => {
     return () => {
       controller.abort();
     };
-  }, [searchText]);
+  }, [searchText, selectedGenre]);
 
   return (
     <>

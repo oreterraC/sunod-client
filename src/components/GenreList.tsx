@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import type { Genre } from "../types/Genre";
 import { getGenres } from "../services/api";
 
-const GenreList = () => {
+interface Properties {
+  onSelectGenre: (id: number) => void;
+  selectedGenre: number | null;
+}
+
+const GenreList = ({ onSelectGenre, selectedGenre }: Properties) => {
   const [genres, setGenres] = useState<Genre[]>([]);
   const [error, setError] = useState(null);
 
@@ -32,7 +37,12 @@ const GenreList = () => {
             className="flex flex-row items-center text-black text-lg dark:text-white"
           >
             <img src={genre.picture} alt="" className="w-9 h-9 rounded-lg" />
-            <span className="pl-4 truncate">{genre.name}</span>
+            <button
+              onClick={() => onSelectGenre(genre.id)}
+              className={`${selectedGenre === genre.id ? "font-bold" : ""} pl-4 truncate`}
+            >
+              {genre.name}
+            </button>
           </li>
         ))}
     </ul>

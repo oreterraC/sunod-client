@@ -3,9 +3,10 @@ import { LuSearch } from "react-icons/lu";
 
 interface Properties {
   onSearch: (searchText: string) => void;
+  searchText: string;
 }
 
-const SearchInput = ({ onSearch }: Properties) => {
+const SearchInput = ({ onSearch, searchText }: Properties) => {
   const reference = useRef<HTMLInputElement>(null);
   return (
     <div className="w-full px-4">
@@ -20,7 +21,8 @@ const SearchInput = ({ onSearch }: Properties) => {
           <LuSearch />
         </span>
         <input
-          ref={reference}
+          value={searchText}
+          onChange={(event) => onSearch(event.target.value)}
           type="text"
           placeholder="Search tracks..."
           className="w-full py-2 px-4 bg-transparent outline-none text-black dark:text-white placeholder-zinc-700 dark:placeholder-zinc-400"

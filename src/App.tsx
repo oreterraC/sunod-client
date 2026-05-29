@@ -11,6 +11,7 @@ function App() {
   });
 
   const [searchText, setSearchText] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState<number | null>(null);
 
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
@@ -24,12 +25,20 @@ function App() {
           onChange={() => setDarkMode((previous) => !previous)}
           onSearch={(text) => {
             setSearchText(text);
+            setSelectedGenre(null);
           }}
+          searchText={searchText}
         />
         <aside className="hidden lg:block bg-zinc-50 dark:bg-zinc-900 text-white p-4">
-          <GenreList />
+          <GenreList
+            onSelectGenre={(id) => {
+              setSelectedGenre(id);
+              setSearchText("");
+            }}
+            selectedGenre={selectedGenre}
+          />
         </aside>
-        <TrackGrid searchText={searchText} />
+        <TrackGrid searchText={searchText} selectedGenre={selectedGenre} />
       </div>
     </div>
   );
