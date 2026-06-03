@@ -38,11 +38,11 @@ const GenreList = ({ onSelectGenre, selectedGenre }: Properties) => {
             className="flex flex-row w-full text-black text-lg dark:text-white"
           >
             <img src={genre.picture} alt="" className="w-9 h-9 rounded-lg" />
-            <button
+            <span
               className={`${selectedGenre === genre.id ? "font-bold" : ""} pl-4 truncate`}
             >
               {genre.name}
-            </button>
+            </span>
           </button>
         ))}
     </ul>

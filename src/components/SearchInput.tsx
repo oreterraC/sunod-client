@@ -15,8 +15,8 @@ const SearchInput = ({ onSearch, searchText }: Properties) => {
           event.preventDefault();
         }}
         className="flex items-center gap-2 w-full rounded-full
-                    bg-zinc-200/60 dark:bg-zinc-800/60
-                    hover:bg-zinc-200 dark:hover:bg-zinc-800
+                    bg-zinc-300/70 dark:bg-zinc-800/60
+                    hover:bg-zinc-300 dark:hover:bg-zinc-800
                     border-2 border-transparent focus-within:border-zinc-800 dark:focus-within:border-zinc-300
                     transition-all duration-200"
       >
@@ -34,7 +34,7 @@ const SearchInput = ({ onSearch, searchText }: Properties) => {
           onChange={(event) => onSearch(event.target.value)}
           type="text"
           placeholder="Search tracks..."
-          className="w-full py-2 px-4 text-zinc-900 dark:text-zinc-50 outline-none rounded-full"
+          className="w-full py-2 px-4 text-zinc-950 dark:text-zinc-50 outline-none rounded-full"
         ></input>
       </form>
     </div>

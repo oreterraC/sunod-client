@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
+import { useTheme } from "../context/Theme";
 import logo from "../assets/logo.png";
 import SearchInput from "./SearchInput";
 
 interface Properties {
-  darkMode: boolean;
-  onChange: () => void;
   onSearch: (searchText: string) => void;
   searchText: string;
 }
 
-const NavBar = ({ darkMode, onChange, onSearch, searchText }: Properties) => {
+const NavBar = ({ onSearch, searchText }: Properties) => {
+  const { darkMode, toggleDarkMode } = useTheme();
   const ThemeIcon = darkMode ? SunIcon : MoonIcon;
 
   return (
@@ -25,7 +25,7 @@ const NavBar = ({ darkMode, onChange, onSearch, searchText }: Properties) => {
       >
         Sign in
       </Link>
-      <button onClick={onChange}>
+      <button onClick={toggleDarkMode}>
         <ThemeIcon className="h-6 w-auto text-zinc-900 dark:text-zinc-50 px-3" />
       </button>
     </nav>
