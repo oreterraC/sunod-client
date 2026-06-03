@@ -32,18 +32,18 @@ const GenreList = ({ onSelectGenre, selectedGenre }: Properties) => {
     <ul className="space-y-3">
       {!error &&
         genres?.map((genre) => (
-          <li
+          <button
             key={genre.id}
-            className="flex flex-row items-center text-black text-lg dark:text-white"
+            onClick={() => onSelectGenre(genre.id)}
+            className="flex flex-row w-full text-black text-lg dark:text-white"
           >
             <img src={genre.picture} alt="" className="w-9 h-9 rounded-lg" />
             <button
-              onClick={() => onSelectGenre(genre.id)}
               className={`${selectedGenre === genre.id ? "font-bold" : ""} pl-4 truncate`}
             >
               {genre.name}
             </button>
-          </li>
+          </button>
         ))}
     </ul>
   );

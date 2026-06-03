@@ -19,7 +19,9 @@ const NavBar = ({ darkMode, onChange, onSearch, searchText }: Properties) => {
       <SearchInput onSearch={onSearch} searchText={searchText} />
       <Link
         to="/signIn"
-        className="flex items-center justify-center rounded-full w-25 text-lg text-fuchsia-500 border-2 border-fuchsia-500/0 hover:border-fuchsia-500 hover:bg-fuchsia-500/10 hover:scale-105 transition-all duration-200"
+        className="flex items-center justify-center rounded-full w-25 text-lg text-fuchsia-500
+                    border-2 border-fuchsia-500/0 hover:border-fuchsia-500 hover:bg-fuchsia-500/10 hover:scale-105
+                    transition-all duration-200"
       >
         Sign in
       </Link>
