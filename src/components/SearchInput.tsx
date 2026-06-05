@@ -15,8 +15,8 @@ const SearchInput = ({ onSearch, searchText }: Properties) => {
           event.preventDefault();
         }}
         className="flex items-center gap-2 w-full rounded-full
-                    bg-zinc-300/70 dark:bg-zinc-800/60
-                    hover:bg-zinc-300 dark:hover:bg-zinc-800
+                    bg-zinc-200/70 dark:bg-zinc-800/70
+                    hover:bg-zinc-200 dark:hover:bg-zinc-800
                     border-2 border-transparent focus-within:border-zinc-800 dark:focus-within:border-zinc-300
                     transition-all duration-200"
       >
