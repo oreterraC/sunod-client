@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Genre } from "../types/Genre";
-import { getGenres } from "../services/api";
+import { getGenres } from "../services/genres.api";
 
 interface Properties {
   onSelectGenre: (id: number) => void;

@@ -3,7 +3,8 @@ import TrackCardContainer from "./TrackCardContainer";
 import TrackCard from "./TrackCard";
 import type { Track } from "../types/Track";
 import TrackCardSkeleton from "./TrackCardSkeleton";
-import { getTopTracks, getTracks, getTracksByGenre } from "../services/api";
+import { getTopTracks, getTracks } from "../services/tracks.api";
+import { getTracksByGenre } from "../services/genres.api";
 
 interface Properties {
   searchText: string;

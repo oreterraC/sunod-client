@@ -1,16 +1,33 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import logo from "../assets/logo.png";
-import { useState } from "react";
-
-interface Properties {
-  onSubmit: (email: string, password: string) => void;
-}
+import { signIn } from "../services/auth.api";
 
 const SignIn = () => {
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
 
   const PasswordIcon = showPassword ? EyeSlashIcon : EyeIcon;
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const abortController = new AbortController();
+    const formData = new FormData(event.currentTarget);
+
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    try {
+      const token = await signIn(email, password, abortController.signal);
+      localStorage.setItem("token", token);
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-zinc-50 dark:bg-zinc-900">
@@ -19,7 +36,10 @@ const SignIn = () => {
         <span className="mt-5 text-xl text-black font-semibold dark:text-white">
           Sign in to sunod
         </span>
-        <form className="flex flex-col items-start mt-6 w-full">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col items-start mt-6 w-full"
+        >
           <label
             htmlFor="email"
             className="text-md text-black font-semibold dark:text-white"
@@ -28,6 +48,7 @@ const SignIn = () => {
           </label>
           <input
             id="email"
+            name="email"
             type="text"
             className="border-1 border-zinc-700/70 dark:border-zinc-500/70 rounded-md mt-1
                         text-black dark:text-white h-10 w-full px-3 outline-none
@@ -43,6 +64,7 @@ const SignIn = () => {
           <div className="relative w-full mt-1">
             <input
               id="password"
+              name="password"
               type={showPassword ? "text" : "password"}
               className="border-1 border-zinc-700/70 dark:border-zinc-500/70 rounded-md mt-1
                         text-black dark:text-white h-10 w-full px-3 pr-10 outline-none

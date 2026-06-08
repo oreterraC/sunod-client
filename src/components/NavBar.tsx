@@ -15,7 +15,7 @@ const NavBar = ({ onSearch, searchText }: Properties) => {
 
   return (
     <nav className="h-18 flex justify-between bg-zinc-50 dark:bg-zinc-900 lg:col-span-2 p-4">
-      <img src={logo} className="h-10 w-auto" />
+      <img src={logo} alt="" className="h-10 w-auto" />
       <SearchInput onSearch={onSearch} searchText={searchText} />
       <Link
         to="/signIn"
