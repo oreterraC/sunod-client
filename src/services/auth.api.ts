@@ -13,7 +13,10 @@ export async function signIn(
     body: JSON.stringify({ email, password }),
     signal,
   });
-  if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message);
+  }
   const data = await response.json();
   return data.token;
 }
@@ -32,7 +35,10 @@ export async function signUp(
     signal,
   });
 
-  if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message);
+  }
   const data = await response.json();
   return data.token;
 }

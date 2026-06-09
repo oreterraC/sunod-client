@@ -9,11 +9,15 @@ const Register = () => {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const PasswordIcon = showPassword ? EyeSlashIcon : EyeIcon;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setError(null);
+
+    const form = event.currentTarget;
     const abortController = new AbortController();
     const formData = new FormData(event.currentTarget);
 
@@ -25,7 +29,9 @@ const Register = () => {
       localStorage.setItem("token", token);
       navigate("/");
     } catch (error) {
-      console.error(error);
+      if (error instanceof Error) setError(error.message);
+      else setError("unknown error");
+      form.reset();
     }
   };
 
@@ -85,6 +91,7 @@ const Register = () => {
           >
             Sign up
           </button>
+          {error && <div className="text-red-500 text-sm mt-3">{error}</div>}
         </form>
         <span className="text-dark dark:text-white text-sm mt-5">
           Already have an account?

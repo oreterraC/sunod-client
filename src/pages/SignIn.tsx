@@ -8,11 +8,15 @@ const SignIn = () => {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
   const PasswordIcon = showPassword ? EyeSlashIcon : EyeIcon;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    setError(null);
 
     const abortController = new AbortController();
     const formData = new FormData(event.currentTarget);
@@ -25,7 +29,9 @@ const SignIn = () => {
       localStorage.setItem("token", token);
       navigate("/");
     } catch (error) {
-      console.error(error);
+      if (error instanceof Error) setError(error.message);
+      else setError("unknown error");
+      setPassword("");
     }
   };
 
@@ -65,7 +71,9 @@ const SignIn = () => {
             <input
               id="password"
               name="password"
+              value={password}
               type={showPassword ? "text" : "password"}
+              onChange={(event) => setPassword(event.target.value)}
               className="border-1 border-zinc-700/70 dark:border-zinc-500/70 rounded-md mt-1
                         text-black dark:text-white h-10 w-full px-3 pr-10 outline-none
                         focus:border-fuchsia-500 focus:ring-1 focus:ring-fuchsia-500/30
@@ -85,6 +93,7 @@ const SignIn = () => {
           >
             Sign in
           </button>
+          {error && <div className="text-red-500 text-sm mt-3">{error}</div>}
         </form>
         <span className="text-dark dark:text-white text-sm mt-5">
           New to sunod?
