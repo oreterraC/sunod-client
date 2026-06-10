@@ -1,10 +1,7 @@
-import { useEffect, useState } from "react";
 import TrackCardContainer from "./TrackCardContainer";
 import TrackCard from "./TrackCard";
-import type { Track } from "../types/Track";
 import TrackCardSkeleton from "./TrackCardSkeleton";
-import { getTopTracks, getTracks } from "../services/tracks.api";
-import { getTracksByGenre } from "../services/genres.api";
+import { useTracks } from "../hooks/useTracks";
 
 interface Properties {
   searchText: string;
@@ -12,40 +9,9 @@ interface Properties {
 }
 
 const TrackGrid = ({ searchText, selectedGenre }: Properties) => {
-  const [tracks, setTracks] = useState<Track[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { tracks, error, isLoading } = useTracks(searchText, selectedGenre);
 
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    const fetchTracks = async () => {
-      setIsLoading(true);
-      setError(null);
-      try {
-        const data =
-          searchText.trim() !== ""
-            ? await getTracks(searchText, controller.signal)
-            : selectedGenre !== null
-              ? await getTracksByGenre(selectedGenre, controller.signal)
-              : await getTopTracks(controller.signal);
-        setTracks(data);
-        setIsLoading(false);
-      } catch (error: any) {
-        if (error.name === "AbortError") return;
-        setError(error);
-        setIsLoading(false);
-      }
-    };
-
-    fetchTracks();
-
-    return () => {
-      controller.abort();
-    };
-  }, [searchText, selectedGenre]);
 
   return (
     <>
