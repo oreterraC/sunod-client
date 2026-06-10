@@ -35,7 +35,6 @@ const Register = () => {
 
   const onSubmit = async (data: FormData) => {
     setError(null);
-    console.log(data);
 
     const abortController = new AbortController();
 
