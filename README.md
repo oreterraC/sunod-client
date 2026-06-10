@@ -3,6 +3,7 @@
 Gestor inteligente de playlists
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-6-blue)
+![Zod](https://img.shields.io/badge/Zod-4-blue)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-blue)
 ![React](https://img.shields.io/badge/React-19-blue)
 ![Vite](https://img.shields.io/badge/Vite-8-purple)
@@ -13,18 +14,20 @@ Gestor inteligente de playlists
 ## ✨ Características
 
 - Buscar canciones
+- Mostrar canciones por género
+- Autenticación
 
 ---
 
 ## 🛠️ Tecnologías
 
 - TypeScript
+- Zod
 - Tailwind CSS
 - React
 - Vite
 
 ---
-
 
 ## ⚙️ Instalación
 
@@ -41,7 +44,11 @@ cd sunod-client
 npm install
 ```
 
-### 3. Ejecutar proyecto
+### 3. Configurar variables de entorno
+
+Copia `.env.example` y cámbiale el nombre a `.env`
+
+### 4. Ejecutar proyecto
 
 ```bash
 npm run dev
@@ -67,9 +74,7 @@ http://localhost:5000/
 
 ## 📈 Mejoras futuras
 
-- [ ] Mostrar canciones por género
 - [ ] Ordenar canciones por relevancia
-- [ ] Autenticación
 - [ ] Gestión de playlists
 - [ ] Géneros más escuchados
 - [ ] Artistas favoritos
