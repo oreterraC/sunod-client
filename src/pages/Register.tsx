@@ -1,9 +1,29 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import { z } from "zod";
 import logo from "../assets/logo.png";
 import { signUp } from "../services/auth.api";
+
+const schema = z.object({
+  username: z
+    .string()
+    .min(3, { message: "Username must be at least 3 characters" })
+    .max(10, { message: "Username must not exceed 10 characters " })
+    .regex(/^\S+$/, { message: "Username cannot contain spaces" }),
+  password: z
+    .string()
+    .min(5, { message: "Password must be at least 5 characters" })
+    .regex(/[A-Za-z]/, {
+      message: "Password must contain at least 1 character",
+    })
+    .regex(/[0-9]/, { message: "Password must contain at least 1 number" }),
+});
+
+type FormData = z.infer<typeof schema>;
 
 const Register = () => {
   const navigate = useNavigate();
@@ -13,27 +33,33 @@ const Register = () => {
 
   const PasswordIcon = showPassword ? EyeSlashIcon : EyeIcon;
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const onSubmit = async (data: FormData) => {
     setError(null);
+    console.log(data);
 
-    const form = event.currentTarget;
     const abortController = new AbortController();
-    const formData = new FormData(event.currentTarget);
-
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
 
     try {
-      const token = await signUp(email, password, abortController.signal);
+      const token = await signUp(
+        data.username,
+        data.password,
+        abortController.signal,
+      );
       localStorage.setItem("token", token);
       navigate("/");
     } catch (error) {
       if (error instanceof Error) setError(error.message);
       else setError("unknown error");
-      form.reset();
+      reset();
     }
   };
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-zinc-50 dark:bg-zinc-900">
@@ -43,24 +69,30 @@ const Register = () => {
           Sign up for sunod
         </span>
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col items-start mt-6 w-full"
         >
           <label
-            htmlFor="email"
+            htmlFor="username"
             className="text-md text-black font-semibold dark:text-white"
           >
-            Email adress
+            Username
           </label>
           <input
-            id="email"
-            name="email"
+            {...register("username")}
+            id="username"
+            name="username"
             type="text"
             className="border-1 border-zinc-700/70 dark:border-zinc-500/70 rounded-md mt-1
                         text-black dark:text-white h-10 w-full px-3 outline-none
                         focus:border-fuchsia-500 focus:ring-1 focus:ring-fuchsia-500/30
                         transition-all duration-200"
           />
+          {errors.username && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.username.message}
+            </p>
+          )}
           <label
             htmlFor="password"
             className="text-md text-black font-semibold dark:text-white mt-4"
@@ -69,6 +101,7 @@ const Register = () => {
           </label>
           <div className="relative w-full mt-1">
             <input
+              {...register("password")}
               id="password"
               name="password"
               type={showPassword ? "text" : "password"}
@@ -77,6 +110,11 @@ const Register = () => {
                         focus:border-fuchsia-500 focus:ring-1 focus:ring-fuchsia-500/30
                         transition-all duration-200"
             />
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.password.message}
+              </p>
+            )}
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
@@ -91,7 +129,7 @@ const Register = () => {
           >
             Sign up
           </button>
-          {error && <div className="text-red-500 text-sm mt-3">{error}</div>}
+          {error && <div className="text-red-500 text-sm mt-1">{error}</div>}
         </form>
         <span className="text-dark dark:text-white text-sm mt-5">
           Already have an account?

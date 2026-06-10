@@ -1,5 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import logo from "../assets/logo.png";
 import { signIn } from "../services/auth.api";
@@ -21,11 +21,11 @@ const SignIn = () => {
     const abortController = new AbortController();
     const formData = new FormData(event.currentTarget);
 
-    const email = formData.get("email") as string;
+    const username = formData.get("username") as string;
     const password = formData.get("password") as string;
 
     try {
-      const token = await signIn(email, password, abortController.signal);
+      const token = await signIn(username, password, abortController.signal);
       localStorage.setItem("token", token);
       navigate("/");
     } catch (error) {
@@ -47,14 +47,14 @@ const SignIn = () => {
           className="flex flex-col items-start mt-6 w-full"
         >
           <label
-            htmlFor="email"
+            htmlFor="username"
             className="text-md text-black font-semibold dark:text-white"
           >
-            Email adress
+            Username
           </label>
           <input
-            id="email"
-            name="email"
+            id="username"
+            name="username"
             type="text"
             className="border-1 border-zinc-700/70 dark:border-zinc-500/70 rounded-md mt-1
                         text-black dark:text-white h-10 w-full px-3 outline-none
@@ -93,7 +93,7 @@ const SignIn = () => {
           >
             Sign in
           </button>
-          {error && <div className="text-red-500 text-sm mt-3">{error}</div>}
+          {error && <div className="text-red-500 text-sm mt-1">{error}</div>}
         </form>
         <span className="text-dark dark:text-white text-sm mt-5">
           New to sunod?

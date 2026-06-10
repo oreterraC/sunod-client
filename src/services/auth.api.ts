@@ -1,7 +1,7 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
 export async function signIn(
-  email: string,
+  username: string,
   password: string,
   signal: AbortSignal,
 ): Promise<string> {
@@ -10,7 +10,7 @@ export async function signIn(
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ username, password }),
     signal,
   });
   if (!response.ok) {
@@ -22,7 +22,7 @@ export async function signIn(
 }
 
 export async function signUp(
-  email: string,
+  username: string,
   password: string,
   signal: AbortSignal,
 ): Promise<string> {
@@ -31,7 +31,7 @@ export async function signUp(
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ username, password }),
     signal,
   });
 
