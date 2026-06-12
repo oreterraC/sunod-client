@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Genre } from "../types/Genre";
 import { getGenres } from "../services/genres.api";
+import { useGenres } from "../hooks/useGenres";
 
 interface Properties {
   onSelectGenre: (id: number) => void;
@@ -8,25 +9,7 @@ interface Properties {
 }
 
 const GenreList = ({ onSelectGenre, selectedGenre }: Properties) => {
-  const [genres, setGenres] = useState<Genre[]>([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    getGenres(controller.signal)
-      .then((data) => {
-        setGenres(data);
-      })
-      .catch((error) => {
-        if (error.name == "AbortError") return;
-        setError(error);
-      });
-
-    return () => {
-      controller.abort();
-    };
-  }, []);
+  const { genres, error } = useGenres();
 
   return (
     <ul className="space-y-3">
