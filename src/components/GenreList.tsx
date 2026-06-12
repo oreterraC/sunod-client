@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-import type { Genre } from "../types/Genre";
-import { getGenres } from "../services/genres.api";
 import { useGenres } from "../hooks/useGenres";
 
 interface Properties {

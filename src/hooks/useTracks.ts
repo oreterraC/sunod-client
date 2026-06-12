@@ -17,7 +17,7 @@ export const useTracks = (searchText: string, selectedGenre: number | null) => {
       setError(null);
       try {
         const request = resolveRequest(searchText, selectedGenre);
-        let data;
+        let data: Track[];
         switch (request.type) {
           case "search":
             data = await getTracks(request.value, controller.signal);

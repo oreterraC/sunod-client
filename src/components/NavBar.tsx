@@ -42,16 +42,26 @@ const NavBar = ({ onSearch, searchText }: Properties) => {
     <nav className="h-18 flex justify-between bg-zinc-50 dark:bg-zinc-900 lg:col-span-2 p-4">
       <img src={logo} alt="" className="h-10 w-auto" />
       <SearchInput onSearch={onSearch} searchText={searchText} />
-      {!session && (
+      <div className="flex items-center gap-2 h-full">
         <Link
-          to="/signIn"
-          className="flex items-center justify-center rounded-full w-25 text-lg text-fuchsia-500
-                    border-2 border-fuchsia-500/0 hover:border-fuchsia-500 hover:bg-fuchsia-500/10 hover:scale-105
-                    transition-all duration-200"
+          to="/playlists"
+          className="flex items-center justify-center text-md text-zinc-800/80 dark:text-zinc-200/80
+                      hover:text-zinc-800 hover:dark:text-zinc-200"
         >
-          Sign in
+          Playlists
         </Link>
-      )}
+        {!session && (
+          <Link
+            to="/signIn"
+            className="flex items-center justify-center w-15 text-md text-zinc-800/80 dark:text-zinc-200/80
+                        hover:text-zinc-800 hover:dark:text-zinc-200
+                        border-1 border-zinc-800/80 dark:border-zinc-200
+                        hover:border-zinc-800 hover:dark:border-zinc-200 rounded-md ml-3"
+          >
+            Sign in
+          </Link>
+        )}
+      </div>
       {session && (
         <div ref={menu} className="relative">
           <button
@@ -79,7 +89,10 @@ const NavBar = ({ onSearch, searchText }: Properties) => {
         </div>
       )}
       <button onClick={toggleDarkMode}>
-        <ThemeIcon className="h-6 w-auto text-zinc-900 dark:text-zinc-50 px-3" />
+        <ThemeIcon
+          className="h-6 w-auto text-zinc-800/80 dark:text-zinc-200/80
+                                hover:text-zinc-800 hover:dark:text-zinc-200 px-3"
+        />
       </button>
     </nav>
   );
