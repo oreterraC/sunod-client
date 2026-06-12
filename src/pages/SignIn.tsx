@@ -93,7 +93,11 @@ const SignIn = () => {
           >
             Sign in
           </button>
-          {error && <div className="text-red-500 text-sm mt-1">{error}</div>}
+          {error && (
+            <div className="text-red-500 font-semibold text-sm mt-1">
+              {error}
+            </div>
+          )}
         </form>
         <span className="text-dark dark:text-white text-sm mt-5">
           New to sunod?

@@ -88,7 +88,7 @@ const Register = () => {
                         transition-all duration-200"
           />
           {errors.username && (
-            <p className="text-red-500 text-sm mt-1">
+            <p className="text-red-500 font-semibold text-sm mt-1">
               {errors.username.message}
             </p>
           )}
@@ -110,7 +110,7 @@ const Register = () => {
                         transition-all duration-200"
             />
             {errors.password && (
-              <p className="text-red-500 text-sm mt-1">
+              <p className="text-red-500 font-semibold text-sm mt-1">
                 {errors.password.message}
               </p>
             )}
@@ -128,7 +128,11 @@ const Register = () => {
           >
             Sign up
           </button>
-          {error && <div className="text-red-500 text-sm mt-1">{error}</div>}
+          {error && (
+            <div className="text-red-500 font-semibold text-sm mt-1">
+              {error}
+            </div>
+          )}
         </form>
         <span className="text-dark dark:text-white text-sm mt-5">
           Already have an account?
